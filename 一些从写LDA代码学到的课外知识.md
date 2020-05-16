@@ -33,3 +33,9 @@ vector<int>a(10,1);
 
 ```
 
+初始化数组简写
+
+```c++
+#define ms(i,j) memset(i, j, sizeof(i)); 
+```
+
