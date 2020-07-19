@@ -61,3 +61,210 @@ vector<int>a(10,1);
 常量、宏定义和枚举一般都是所有字母大写，特别是宏定义，在不同字母之间，可以加上下划线，也可以不加。
 ```
 
+```
+int   argc,   char*   argv[]里
+
+输入
+F:\MYDOCU~1\TEMPCODE\D1\DEBUG\D1.EXE   aaaa   bbb   ccc   ddd  
+
+则
+argc=5
+argv[0]=F:\MYDOCU~1\TEMPCODE\D1\DEBUG\D1.EXE
+argv[1]=aaaa
+```
+
+```
+getline(cin, inputLine);
+
+相当于cin>>inputLine;
+但是中间可以输入空格，只有换行的时候才会停止输入
+也可以放文件句柄：
+fstream fin(file);
+getline(fin, rule);
+```
+
+STL
+
+容器，算法，迭代器
+
+容器，算法，迭代器，仿函数，适配器，空间配置器
+
+容器：序列式，关联式
+
+算法：质变，非质变
+
+迭代器：用于访问容器里的东西
+
+输入，输出，前向，双向，随机访问
+
+
+
+vector
+
+```c++
+#include <vector>
+vector<int> V;
+V.push_back(10);
+
+vector<int>::iterator itBegin=V.begin();
+#itBegin是指针
+vector<int>::iterator itEnd=V.end();
+#指向最后一个的后面一个
+
+while(itBegin!=itEnd){
+    itBegin++;
+}
+
+for(vector<int>::iterator itBegin=V.begin();itBegin!=V.end();itBegin++){
+    
+}
+
+#include <algorithm>
+for_each(V.begin(),V.end(),要运行的函数,参数默认为V里的每个数);
+
+技巧：*it为尖括号里面的东西
+int等价于*it
+    
+vector<vector<int>> VV;
+vector<vector<int> V;
+
+VV.push_back(V);
+VV的*it为vector
+所以:
+for(it){
+    for(vit=it->begin()){
+
+    }
+}
+
+
+```
+
+string
+
+```c++
+const char* str=""
+string s(str);
+s=str;
+s.assign(str);
+s.assign(str,3);#前几个
+s.assign(s1);
+    
+string s1(s);
+s1=s;
+string s2(10,'a');
+
+s+=s1;
+s+=str;
+
+s.append(s1,3,2)#拼接从3开始，往后2个的字符
+    
+int pos=s.find(str);#返回第一个位置，位置从0开始算
+if(pos==-1){
+    cout<<"没有找到"<<endl;
+}
+
+int pos=s.rfind(str);#从右往左查找
+s.replace(1,3,"1111");#从1开始替换，后面三个字符串替换为后面的东西
+    
+int res=s.compare(s1)
+res==0：相等
+res==1：s大
+```
+
+
+
+set（关联式容器：二叉树）
+
+multiset（允许有重复）
+
+只有insert
+
+```c++
+set<int>se;
+se.insert(10);
+
+printSet(se);
+void printSet(set<int>&se){
+	for(set<int>::iterator it=se.begin();it!=s.end();it++){
+		cout<<*it<<endl;
+	}
+}
+
+set<int>se1(se);#拷贝构造
+se1=se;#这样也可以
+
+if(se.empty()){
+	cout<<"为空"<<endl;
+}
+se.size();
+se.swap(se1);#两个里面的东西会交换
+se.erase(se.begin());#此处的begin()是排序后的第一个
+se.erase(se.begin(),se.end());#清空
+se.clear();#清空
+se.erase(30);
+
+set<int>::iterator pos=se.find(30);
+if(pos!=se.end()){
+    cout<<*pos<<endl;
+}
+
+int num=se.count(30);#统计30的个数，都是1或者0
+
+    
+自定义：
+class CPerson{
+public:
+    CPerson(string name,int age){
+		this->inName=name;
+         this->inAge=age;
+    }
+    string inName;
+    int inAge;
+}
+    
+class CSortPerson{
+public:
+    bool operator()(const CPerson & CP2,const CPerson & CP3){
+        return CP2.inAge>CP3.inAge;
+    }
+}
+#安装年龄排序
+set<CPerson,CSortPerson>se;
+CPerson CP1("Tom",18);
+se.insert(CP1);
+for(set<CPerson,CSortPerson>::iterator it=se.begin()...){
+    cout<<it->inName;
+}
+```
+
+pair
+
+```c++
+pair<str,int>p("tom",20);
+pair<str,int>p2=make_pair("tom",20);
+cout<<p.first<<endl;
+
+p.second
+
+```
+
+仿函数更改排序
+
+```
+class CSort{
+public:
+	bool operator()(int v1,int v2){
+		return v1>v2;
+	}
+}
+
+set<int,CSort>se;
+
+for(set<int,CSort>::iterator it=se.begin...){
+
+}
+#可能需要加const
+
+```
+
