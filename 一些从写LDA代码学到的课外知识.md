@@ -268,3 +268,35 @@ for(set<int,CSort>::iterator it=se.begin...){
 
 ```
 
+模板：
+
+```c++
+template<class T>
+    void mySort(T arr[],int len){
+    for(int i=0;i<len;i++){
+		int max=i;
+         for(int j=i+1;j<len;j++){
+             if(arr[max]<arr[j]){
+                 max=j;
+             }
+         }
+         if(max!=i){
+             
+         }
+    }
+}
+```
+
+函数模板
+
+```c++
+template<class T>
+T myfunc(T a,T b){
+	return a+b;
+}
+
+myfunc<int>(a,b);//a和b可以不是一种类型（含有隐式类型转换）
+myfunc(a,b);//a和b必须是一种类型，因为有二义性
+//但是都不能传引用
+```
+
