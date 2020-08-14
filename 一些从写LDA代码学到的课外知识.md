@@ -298,5 +298,100 @@ T myfunc(T a,T b){
 myfunc<int>(a,b);//a和b可以不是一种类型（含有隐式类型转换）
 myfunc(a,b);//a和b必须是一种类型，因为有二义性
 //但是都不能传引用
+
+
+模板和函数的重载：
+    如果两者相同，优先调用函数。但是也可以用空模板调用的方式，调用模板。
+空模板调用方式
+myfunc<>(a,b);    
+
+对模板进行重载：
+template<> bool myFunc(可以是类){
+    这样的话，如果在调用模板的时候导入了类的参数的时候，就会调用这个而不是普遍的T的那个
+    类似运算符重载，但是少用运算符重载
+}
+
+类模板
+template<class Name,class Age>
+class CPerson{
+	public:
+    	CPerson(Name name,Age age){
+            inName=name;
+            inAge=age;
+        }
+    Name inName;
+    Age inAge;
+}
+
+CPerson<string,int> p1("aaa",1);
+```
+
+回调函数
+
+```c++
+//带参数的回调函数
+int Callback_1(int x) // Callback Function 1
+{
+    printf("Hello, this is Callback_1: x = %d ", x);
+    return 0;
+}
+int Handle(int y, int (*Callback)(int))
+{
+    printf("Entering Handle Function. ");
+    Callback(y);
+    printf("Leaving Handle Function. ");
+}
+
+int main()
+{
+    int a = 2;
+    printf("Entering Main Function. ");
+    Handle(a, Callback_1);
+    printf("Leaving Main Function. ");
+    return 0;
+}
+
+//不带参数的回调函数
+int Callback_1() // Callback Function 1
+{
+    printf("Hello, this is Callback_1 ");
+    return 0;
+}
+int Handle(int (*Callback)())
+{
+    printf("Entering Handle Function. ");
+    Callback();
+    printf("Leaving Handle Function. ");
+}
+
+int main()
+{
+    printf("Entering Main Function. ");
+    Handle(Callback_1);
+    printf("Leaving Main Function. ");
+    return 0;
+}
+```
+
+python@修饰器
+
+```python
+def simple_decorator(f):
+    def wrapper():#2执行这个
+        print "Entering Function"
+        f()#3执行这个
+        print "Exited Function"
+    return wrapper 
+@simple_decorator#先执行这个
+def hello():
+    print "Hello World"
+hello()
+
+
+'''
+Entering Function
+Hello World
+Exited Function
+'''
 ```
 
